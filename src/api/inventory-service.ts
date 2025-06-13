@@ -1,4 +1,5 @@
 import axios from "axios";
+import type {Product} from "../types/product.ts";
 
 
 const api = axios.create({
@@ -9,7 +10,7 @@ const api = axios.create({
 
 })
 
-export const getAllProducts = async (keys?: string[]) => {
+export const getAllProducts = async (keys?: string[]) : Promise<Product[]> => {
 
     const query = `query MyQuery {
           getProducts {
