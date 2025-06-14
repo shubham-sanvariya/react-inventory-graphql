@@ -36,3 +36,30 @@ export const getAllProducts = async (keys?: string[]) : Promise<Product[]> => {
         throw e;
     }
 }
+
+export const getProductById = async (id : number) : Promise<Product> => {
+    const query = `query Get {
+  getProductById(id: ${id}) {
+    name
+    price
+    stock
+    category
+    id
+  }
+}`
+
+    try {
+        const response = await api.post('', {
+            query
+        })
+
+        if (response.data.errors){
+            new Error(response.data.errors[0].message);
+        }
+
+        return response.data.data.getProductById;
+    }catch (e: unknown) {
+        console.error("Error fetching product By Id:", e);
+        throw e;
+    }
+}
