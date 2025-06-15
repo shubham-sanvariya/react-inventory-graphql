@@ -9,11 +9,13 @@ export const Route = createRootRoute({
             <div className={'flex justify-center gap-2 '}>
                 <Link to={"/"} className={'active:font-semibold bg-cyan-100 text-xl text-red-500'}>
                     Home
+                </Link><Link to={"/products/post"} className={'active:font-semibold bg-cyan-100 text-xl text-red-500'}>
+                    add
                 </Link>
             </div>
             <hr/>
             <Outlet/>
-            <ReactQueryDevtools/>
+            <ReactQueryDevtools initialIsOpen={false}/>
             <TanStackRouterDevtools/>
         </>
     )
