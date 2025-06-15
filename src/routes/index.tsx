@@ -14,8 +14,6 @@ export const Route = createFileRoute({
         return { arr };
     },
 
-    errorComponent: ( {error} ) => <div>something went wrong. {error.message}</div>,
-
     component: Index
 })
 
