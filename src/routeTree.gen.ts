@@ -12,7 +12,7 @@ import type { CreateFileRoute, FileRoutesByPath } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProductsUpdateRouteImport } from './routes/products/update'
+import { Route as ProductsPostRouteImport } from './routes/products/post'
 import { Route as ProductsIdRouteImport } from './routes/products/$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -20,9 +20,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductsUpdateRoute = ProductsUpdateRouteImport.update({
-  id: '/products/update',
-  path: '/products/update',
+const ProductsPostRoute = ProductsPostRouteImport.update({
+  id: '/products/post',
+  path: '/products/post',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsIdRoute = ProductsIdRouteImport.update({
@@ -34,31 +34,31 @@ const ProductsIdRoute = ProductsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/products/$id': typeof ProductsIdRoute
-  '/products/update': typeof ProductsUpdateRoute
+  '/products/post': typeof ProductsPostRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/products/$id': typeof ProductsIdRoute
-  '/products/update': typeof ProductsUpdateRoute
+  '/products/post': typeof ProductsPostRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/products/$id': typeof ProductsIdRoute
-  '/products/update': typeof ProductsUpdateRoute
+  '/products/post': typeof ProductsPostRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/products/$id' | '/products/update'
+  fullPaths: '/' | '/products/$id' | '/products/post'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/products/$id' | '/products/update'
-  id: '__root__' | '/' | '/products/$id' | '/products/update'
+  to: '/' | '/products/$id' | '/products/post'
+  id: '__root__' | '/' | '/products/$id' | '/products/post'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ProductsIdRoute: typeof ProductsIdRoute
-  ProductsUpdateRoute: typeof ProductsUpdateRoute
+  ProductsPostRoute: typeof ProductsPostRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -77,11 +77,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/products/update': {
-      id: '/products/update'
-      path: '/products/update'
-      fullPath: '/products/update'
-      preLoaderRoute: typeof ProductsUpdateRouteImport
+    '/products/post': {
+      id: '/products/post'
+      path: '/products/post'
+      fullPath: '/products/post'
+      preLoaderRoute: typeof ProductsPostRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -105,20 +105,20 @@ declare module './routes/products/$id' {
     FileRoutesByPath['/products/$id']['fullPath']
   >
 }
-declare module './routes/products/update' {
+declare module './routes/products/post' {
   const createFileRoute: CreateFileRoute<
-    '/products/update',
-    FileRoutesByPath['/products/update']['parentRoute'],
-    FileRoutesByPath['/products/update']['id'],
-    FileRoutesByPath['/products/update']['path'],
-    FileRoutesByPath['/products/update']['fullPath']
+    '/products/post',
+    FileRoutesByPath['/products/post']['parentRoute'],
+    FileRoutesByPath['/products/post']['id'],
+    FileRoutesByPath['/products/post']['path'],
+    FileRoutesByPath['/products/post']['fullPath']
   >
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ProductsIdRoute: ProductsIdRoute,
-  ProductsUpdateRoute: ProductsUpdateRoute,
+  ProductsPostRoute: ProductsPostRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
