@@ -1,5 +1,6 @@
 import axios from "axios";
 import type {Product} from "../types/product.ts";
+import type {PostFormTypes} from "../validator/postProductValidator.ts";
 
 
 const api = axios.create({
@@ -10,7 +11,7 @@ const api = axios.create({
 
 })
 
-export const getAllProducts = async (keys?: string[]) : Promise<Product[]> => {
+export const getAllProducts = async (keys?: string[]): Promise<Product[]> => {
 
     const query = `query MyQuery {
           getProducts {
@@ -37,8 +38,8 @@ export const getAllProducts = async (keys?: string[]) : Promise<Product[]> => {
     }
 }
 
-export const getProductById = async (id : number) : Promise<Product> => {
-    const query = `query Get {
+export const getProductById = async (id: number): Promise<Product> => {
+    const query = `query GetProductById {
   getProductById(id: ${id}) {
     name
     price
@@ -53,13 +54,44 @@ export const getProductById = async (id : number) : Promise<Product> => {
             query
         })
 
-        if (response.data.errors){
+        if (response.data.errors) {
             new Error(response.data.errors[0].message);
         }
 
         return response.data.data.getProductById;
-    }catch (e: unknown) {
+    } catch (e: unknown) {
         console.error("Error fetching product By Id:", e);
         throw e;
     }
 }
+
+export const createNewProduct = async (postValues: PostFormTypes): Promise<Product> => {
+    const mutation = `
+        mutation CreateNewProduct($input: CreateProductInput!) {
+            saveNewProduct(input: $input) {
+                name
+                price
+                stock
+                category
+            }
+        }
+    `;
+    try {
+        const response = await api.post('', {
+            query : mutation,
+            variables : {
+                input : postValues
+            }
+        })
+
+        if (response.data.errors) {
+           new Error(response.data.errors[0].message);
+        }
+
+        return response.data.data.saveNewProduct;
+    } catch (e: unknown) {
+        console.error("Error saving new Product", e);
+        throw e;
+    }
+}
+
