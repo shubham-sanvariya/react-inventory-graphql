@@ -28,10 +28,13 @@ function RouteComponent() {
         {isPending && <div>Loading...</div>}
         {isError && <div>something went wrong. {error.message}</div>}
         {isSuccess && <div className="flex flex-col justify-center items-center gap-2 p-2">
-            <h2>Name : {data?.name}</h2>
-            <h4>price: {data?.price}</h4>
-            <h4>price: {data?.category}</h4>
-            <h4>price: {data?.stock}</h4>
+            <div className="border-2 p-2 mt-10">
+                <h2>Name : {data?.name}</h2>
+                <h4>price: {data?.price}</h4>
+                <h4>price: {data?.category}</h4>
+                <h4>price: {data?.stock}</h4>
+            </div>
+
         </div>}
     </>
 }
